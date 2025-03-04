@@ -7,6 +7,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Star, Clock, Users } from "lucide-react";
 import Link from "next/link";
+import Button from "@/components/atoms/ui/Button";
 
 export default function Header() {
   const slides = [
@@ -81,9 +82,7 @@ export default function Header() {
                     <span>Por {slide.chef}</span>
                   </div>
                   <Link href="/recipes">
-                    <button className="bg-primary text-white px-6 py-2 text-lg rounded-md  hover:bg-orange-500 transition">
-                      Ver Receta
-                    </button>
+                         <Button className="px-6 py-2 text-lg ">     Ver Receta</Button>
 
                   </Link>
 

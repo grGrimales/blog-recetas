@@ -1,4 +1,4 @@
-import RecipeCard from "./RecipeCard";
+import RecipeCard from "../../molecules/recipe/RecipeCard";
 
 interface CategorySectionProps {
   title: string;
