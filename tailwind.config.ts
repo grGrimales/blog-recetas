@@ -14,6 +14,7 @@ export default {
         accent: "#D97B45",
         neutral: "#333333",
         background: "#FAFAF5",
+        lightGray: "#F1F5F9",
       },
     },
   },

@@ -45,7 +45,7 @@ export default function Navbar() {
               </button>
             </Link>
             <Link href="/auth/register">
-              <button className="px-4 py-2 bg-primary text-white rounded-md hover:bg-green-700 transition">
+              <button className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/80 transition">
                 Registrarse
               </button>
             </Link>
@@ -88,7 +88,7 @@ export default function Navbar() {
             </Link>
             <Link
               href="/auth/register"
-              className="text-white bg-primary px-4 py-2 rounded-md hover:bg-green-700 transition"
+              className="text-white bg-primary px-4 py-2 rounded-md hover:bg-primary/80 transition"
               onClick={() => setIsMenuOpen(false)}
             >
               Registrarse
