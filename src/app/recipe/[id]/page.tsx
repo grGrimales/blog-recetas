@@ -1,8 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import { Star } from "lucide-react";
 import Separator from "@/components/atoms/ui/Separator";
 import Textarea from "@/components/atoms/ui/Textarea";
 import Button from "@/components/atoms/ui/Button";
+import { useEffect, useState } from "react";
 
 
 interface RecipeDetailProps {
@@ -53,6 +56,19 @@ const recipe = {
 };
 
 export default function RecipeDetail({ params }: RecipeDetailProps) {
+
+
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+
+        setTimeout(() => {
+            setLoading(false)
+        }, 2000);
+
+    }, [])
+
+
     return (
         <div className="container mx-auto px-4 py-8">
             <article className="max-w-4xl mx-auto">
@@ -78,7 +94,7 @@ export default function RecipeDetail({ params }: RecipeDetailProps) {
                     </div>
                 </header>
 
-                <div className="aspect-video relative mb-8 rounded-lg overflow-hidden">
+                {/* <div className="aspect-video relative mb-8 rounded-lg overflow-hidden">
                     <iframe
                         width="100%"
                         height="100%"
@@ -88,6 +104,25 @@ export default function RecipeDetail({ params }: RecipeDetailProps) {
                         allowFullScreen
                         className="rounded-lg"
                     ></iframe>
+                </div> */}
+
+                {/* Video con Skeleton Loader */}
+                <div className="aspect-video relative mb-8 rounded-lg overflow-hidden">
+                    {loading ? (
+                        <div className="absolute inset-0 bg-gray-300 animate-pulse flex items-center justify-center">
+                            <span className="text-gray-500 text-lg">Cargando video...</span>
+                        </div>
+                    ) : (<iframe
+                        width="100%"
+                        height="100%"
+                        src={recipe.video}
+                        title="Video de la receta"
+                        frameBorder="0"
+                        allowFullScreen
+                        className="rounded-lg"
+                        onLoad={() => setLoading(false)}
+                    ></iframe>)}
+
                 </div>
 
                 <div className="grid md:grid-cols-[2fr_1fr] gap-8">
