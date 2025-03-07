@@ -19,7 +19,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   // Verifica si la ruta es del panel de admin para ocultar Navbar
-  const isAdmin = typeof window !== "undefined" && window.location.pathname.startsWith("/admin");
     const { user, isAuthenticated } = useAuth();
 
   return (

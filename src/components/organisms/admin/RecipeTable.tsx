@@ -15,28 +15,28 @@ export default function RecipeTable() {
     <div className="bg-white p-6 rounded-lg shadow-md">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-semibold">Recetas</h2>
-        <Link href="/admin/recipes/new">
+        <Link href="/admin/recipes/new-recipe">
           <Button variant="primary">Nueva Receta</Button>
         </Link>
       </div>
-      <table className="w-full border-collapse border border-gray-200">
+      <table className="w-full  rounded-md border-gray-200">
         <thead>
-          <tr className="bg-secondary">
-            <th className="border border-gray-300 p-2 text-left">Título</th>
-            <th className="border border-gray-300 p-2 text-left">Autor</th>
-            <th className="border border-gray-300 p-2 text-left">Calificación</th>
-            <th className="border border-gray-300 p-2 text-left">Estado</th>
-            <th className="border border-gray-300 p-2 text-right">Acciones</th>
+          <tr className="bg-lightGray text-center ">
+            <th className=" p-2">Título</th>
+            <th className="p-2">Autor</th>
+            <th className="p-2">Calificación</th>
+            <th className="p-2">Estado</th>
+            <th className="p-2 ">Acciones</th>
           </tr>
         </thead>
         <tbody>
           {recipes.map((recipe) => (
-            <tr key={recipe.id} className="border-t">
+            <tr key={recipe.id} className="border-t text-center">
               <td className="p-2">{recipe.title}</td>
               <td className="p-2">{recipe.author}</td>
               <td className="p-2">{recipe.rating}</td>
               <td className="p-2">{recipe.status}</td>
-              <td className="p-2 text-right space-x-2">
+              <td className="p-2 text-center space-x-2">
                 <Link href={`/admin/recipes/edit/${recipe.id}`}>
                   <Button variant="outline" size="sm">
                     <PenSquare className="h-4 w-4" /> 
