@@ -3,7 +3,6 @@ import AuthForm from "@/components/molecules/auth/AuthForm";
 export default function LoginPage() {
   return (
     <div className="container relative min-h-screen grid lg:grid-cols-2">
-      {/* Sección izquierda con el fondo de color primario */}
       <div className="relative hidden lg:flex flex-col bg-primary text-white p-10">
         <div className="relative z-20 flex items-center text-lg font-medium">Recipe Blog</div>
         <div className="relative z-20 mt-auto">

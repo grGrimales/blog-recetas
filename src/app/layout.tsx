@@ -1,7 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/organisms/layout/Navbar";
-import { useAuth } from "@/hooks/useAuth";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,12 +18,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   // Verifica si la ruta es del panel de admin para ocultar Navbar
-    const { user, isAuthenticated } = useAuth();
 
   return (
     <html lang="es">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {!isAuthenticated && <Navbar />}
+        <Navbar />
         {children}
       </body>
     </html>

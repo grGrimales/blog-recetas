@@ -12,10 +12,7 @@ export default function AdminHeader() {
       <h1 className="text-2xl font-bold">Panel de Administración</h1>
       <div className="flex items-center gap-4">
         <span className="text-sm">{user.name}</span>
-        <Button variant="outline">
-          <User className="h-4 w-4 mr-2" />
-          Cerrar sesión
-        </Button>
+       
       </div>
     </header>
   );

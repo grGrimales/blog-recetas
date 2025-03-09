@@ -4,16 +4,38 @@ import { useState } from "react";
 import Link from "next/link";
 import Input from "@/components/atoms/ui/Input";
 import Button from "@/components/atoms/ui/Button";
+import { useAuth } from "@/hooks/useAuth";
 
 interface AuthFormProps {
   type: "login" | "register";
 }
 
 export default function AuthForm({ type }: AuthFormProps) {
+  const { handleLogin, handleRegister } = useAuth();
   const [formData, setFormData] = useState({ name: "", email: "", password: "" });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    try {
+      if (type === "login") {
+        await handleLogin(formData.email, formData.password);
+      } else {
+        await handleRegister(formData.name, formData.email, formData.password);
+      }
+    } catch (err) {
+      setError("Error en la autenticación");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -57,7 +79,7 @@ export default function AuthForm({ type }: AuthFormProps) {
           required
         />
 
-        <Button className="w-full">{type === "login" ? "Ingresar" : "Registrarse"}</Button>
+        <Button className="w-full" onClick={handleSubmit}>{type === "login" ? "Ingresar" : "Registrarse"}</Button>
       </form>
 
       {type === "login" ? (
@@ -70,7 +92,7 @@ export default function AuthForm({ type }: AuthFormProps) {
       ) : (
         <p className="text-sm text-muted-foreground text-center">
           ¿Ya tienes cuenta?{" "}
-          <Link href="/auth/login" className="text-primary hover:underline">
+          <Link href="/auth/login" className="text-primary hover:underline" >
             Inicia sesión
           </Link>
         </p>
