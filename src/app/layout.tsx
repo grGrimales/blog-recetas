@@ -17,7 +17,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Verifica si la ruta es del panel de admin para ocultar Navbar
+
 
   return (
     <html lang="es">

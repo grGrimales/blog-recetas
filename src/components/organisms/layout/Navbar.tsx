@@ -1,12 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Search, Menu, X, User, ChefHat } from "lucide-react";
+import { Search, Menu, X, User, ChefHat, LogOut } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth"; 
 
 export default function Navbar() {
+  const [isMounted, setIsMounted] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const {  isAuthenticated, handleLogout } = useAuth(); 
+
+  console.log(isAuthenticated)
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return null;
 
   return (
     <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
@@ -38,17 +49,30 @@ export default function Navbar() {
                 <Search className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors" />
               </button>
             )}
-            <Link href="/auth/login">
-              <button className="flex items-center gap-2 px-4 py-2 border-none rounded-md text-neutral hover:bg-gray-100 transition">
-                <User className="h-5 w-5" />
-                <span>Acceder</span>
+
+            {isAuthenticated ? (
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-2 px-4 py-2 border-none rounded-md text-neutral hover:bg-gray-100 transition"
+              >
+                <LogOut className="h-5 w-5" />
+                <span>Cerrar sesión</span>
               </button>
-            </Link>
-            <Link href="/auth/register">
-              <button className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/80 transition">
-                Registrarse
-              </button>
-            </Link>
+            ) : (
+              <>
+                <Link href="/auth/login">
+                  <button className="flex items-center gap-2 px-4 py-2 border-none rounded-md text-neutral hover:bg-gray-100 transition">
+                    <User className="h-5 w-5" />
+                    <span>Acceder</span>
+                  </button>
+                </Link>
+                <Link href="/auth/register">
+                  <button className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/80 transition">
+                    Registrarse
+                  </button>
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -79,20 +103,32 @@ export default function Navbar() {
       {isMenuOpen && (
         <div className="md:hidden bg-background border-b">
           <nav className="max-w-7xl mx-auto px-4 py-4 flex flex-col space-y-4">
-            <Link
-              href="/auth/login"
-              className="text-foreground hover:text-primary transition-colors py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Acceder
-            </Link>
-            <Link
-              href="/auth/register"
-              className="text-white bg-primary px-4 py-2 rounded-md hover:bg-primary/80 transition"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Registrarse
-            </Link>
+            {isAuthenticated ? (
+              <button
+                onClick={handleLogout}
+                className="text-red-600 hover:text-red-800 transition-colors py-2 flex items-center gap-2"
+              >
+                <LogOut className="h-5 w-5" />
+                <span>Cerrar sesión</span>
+              </button>
+            ) : (
+              <>
+                <Link
+                  href="/auth/login"
+                  className="text-foreground hover:text-primary transition-colors py-2"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Acceder
+                </Link>
+                <Link
+                  href="/auth/register"
+                  className="text-white bg-primary px-4 py-2 rounded-md hover:bg-primary/80 transition"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Registrarse
+                </Link>
+              </>
+            )}
           </nav>
         </div>
       )}
