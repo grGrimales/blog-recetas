@@ -1,12 +1,18 @@
 "use client";
 
-import { loginUser, registerUser } from "@/libs/api"; // Usamos las funciones de la API
+import { loginUser, registerUser } from "@/libs/auth"; 
 import { useAuthStore } from "@/store/authStore";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export function useAuth() {
   const { login, logout, isAuthenticated, user, token } = useAuthStore();
+  const [hydrated, setHydrated] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
 
   const handleLogin = async (email: string, password: string) => {
     try {
@@ -15,10 +21,12 @@ export function useAuth() {
 
       login({ userId, email: userEmail, name, roles }, token);
       localStorage.setItem("token", token);
-
-      if (roles.includes("USER_ADMIN")) {
+      console.log(roles.includes("ADMIN_ROLE"), 'login', roles)
+      if (roles.includes("ADMIN_ROLE")) {
+        console.log('ISADMIN')
         router.push("/admin");
       } else {
+        console.log('IsUser')
         router.push("/");
       }
     } catch (error) {
@@ -43,5 +51,5 @@ export function useAuth() {
     router.push("/auth/login");
   };
 
-  return { user, token, isAuthenticated, handleLogin, handleRegister, handleLogout };
+  return { user, token, isAuthenticated,hydrated , handleLogin, handleRegister, handleLogout };
 }
