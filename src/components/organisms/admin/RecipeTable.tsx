@@ -4,9 +4,12 @@ import Link from "next/link";
 import { PenSquare, Trash2 } from "lucide-react";
 import Button from "@/components/atoms/ui/Button";
 import { useRecipes } from "@/hooks/useRecipes";
+import { useAlertStore } from "@/store/alertStore";
+import { useConfirmStore } from "@/store/confirmStore";
 
 export default function RecipeTable() {
-  const { recipes, loading, error } = useRecipes();
+  const { recipes, loading, error, handleDeleteRecipe } = useRecipes();
+  const alert = useAlertStore();
 
   if (loading) {
     return <p className="p-6 text-center">Cargando recetas...</p>;
@@ -45,7 +48,12 @@ export default function RecipeTable() {
                     <PenSquare className="h-4 w-4" />
                   </Button>
                 </Link>
-                <Button variant="destructive" size="sm">
+                <Button variant="destructive" size="sm" onClick={() => {
+                  useConfirmStore.getState().open(
+                    "¿Estás seguro de que deseas eliminar esta receta?",
+                    () => handleDeleteRecipe(recipe._id!)
+                  );
+                }}>
                   <Trash2 className="h-4 w-4" />
                 </Button>
               </td>

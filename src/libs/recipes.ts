@@ -52,3 +52,18 @@ export async function updateRecipe(recipeId: string, updatedFields: Partial<Reci
   if (!res.ok) throw new Error("Error al actualizar la receta");
   return res.json();
 }
+
+export async function deleteRecipe(recipeId: string) {
+  const token = getToken();
+  if (!token) throw new Error("Token no disponible");
+
+  const res = await fetch(`${API_URL}/${recipeId}`, {
+    method: "DELETE",
+    headers: {
+      token: `${token}`,
+    },
+  });
+
+  if (!res.ok) throw new Error("Error al eliminar la receta");
+  return res.json();
+}

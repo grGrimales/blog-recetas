@@ -1,14 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { fetchRecipes, createRecipe, updateRecipe } from "@/libs/recipes";
+import { fetchRecipes, createRecipe, updateRecipe, deleteRecipe } from "@/libs/recipes";
 import { Recipe } from "@/types/recipe";
+import { useAlertStore } from "@/store/alertStore";
 
 export function useRecipes() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+
+
+  const { successMessage, errorMessage } = useAlertStore.getState();
 
   // GET - Obtener recetas al cargar
   useEffect(() => {
@@ -36,9 +40,9 @@ export function useRecipes() {
     try {
       const newRecipe = await createRecipe(recipeData);
       setRecipes((prev) => [...prev, newRecipe]);
-      setSuccess("Receta creada exitosamente");
+      successMessage("Receta creada exitosamente");
     } catch (err) {
-      setError("Error al crear receta");
+      errorMessage("Error al crear receta");
     } finally {
       setLoading(false);
     }
@@ -55,13 +59,32 @@ export function useRecipes() {
       setRecipes((prev) =>
         prev.map((r) => (r._id === recipeId ? { ...r, ...updated } : r))
       );
-      setSuccess("Receta actualizada correctamente");
+      successMessage("Receta actualizada correctamente");
     } catch (err) {
-      setError("Error al actualizar receta");
+      errorMessage("Error al actualizar receta");
     } finally {
       setLoading(false);
     }
   };
+
+
+  //Delete
+
+  const handleDeleteRecipe = async (recipeId: string) => {
+    setLoading(true);
+    setError(null);
+    setSuccess(null);
+
+    try {
+      await deleteRecipe(recipeId);
+      setRecipes((prev) => prev.filter((r) => r._id !== recipeId))
+      successMessage("Receta eliminada correctamente");
+    } catch (err) {
+      errorMessage("Error al eliminar receta");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return {
     recipes,
@@ -70,5 +93,6 @@ export function useRecipes() {
     success,
     handleCreateRecipe,
     handleUpdateRecipe,
+    handleDeleteRecipe
   };
 }
