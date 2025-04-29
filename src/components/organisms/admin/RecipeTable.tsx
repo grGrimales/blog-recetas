@@ -51,7 +51,7 @@ export default function RecipeTable() {
                 <Button variant="destructive" size="sm" onClick={() => {
                   useConfirmStore.getState().open(
                     "¿Estás seguro de que deseas eliminar esta receta?",
-                    () => handleDeleteRecipe(recipe._id!)
+                    () => handleDeleteRecipe(String(recipe._id!)),
                   );
                 }}>
                   <Trash2 className="h-4 w-4" />

@@ -67,3 +67,17 @@ export async function deleteRecipe(recipeId: string) {
   if (!res.ok) throw new Error("Error al eliminar la receta");
   return res.json();
 }
+
+
+export async function getRecipeById(recipeId: string) {
+  const token = getToken();
+  if (!token) throw new Error("Token no disponible");
+
+  const res = await fetch(`${API_URL}/${recipeId}`, {
+    headers: { token: `${token}` },
+  });
+
+  if (!res.ok) throw new Error("Error al obtener la receta");
+  return res.json();
+}
+
