@@ -1,23 +1,25 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useRecipes } from "@/hooks/useRecipes";
+import { useRecipeById } from "@/hooks/useRecipeById";
 import RecipeForm from "@/components/organisms/recipe/RecipeForm";
+import { useRecipes } from "@/hooks/useRecipes";
 import { Recipe } from "@/types/recipe";
+
+
+
 
 export default function EditRecipePage() {
   const { id } = useParams();
-  const { recipes, handleUpdateRecipe } = useRecipes();
+  const { recipe, loading } = useRecipeById(id as string);
+  const { handleUpdateRecipe } = useRecipes();
 
-  const recipe = recipes.find((r) => r._id === id);
+  if (loading) return <p className="p-6 text-center">Cargando receta...</p>;
+  if (!recipe) return null;
 
-  const handleSubmit = async (data: Recipe) => {
-    if (!recipe) return;
-
-    await handleUpdateRecipe(id as string, data);
+  const handleSubmit = async (updatedData: Partial<Recipe>) => {
+    await handleUpdateRecipe(id as string, updatedData);
   };
-
-  if (!recipe) return <p className="text-center p-6">Cargando...</p>;
 
   return <RecipeForm initialData={recipe} onSubmit={handleSubmit} isEditing />;
 }

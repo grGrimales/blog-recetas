@@ -23,7 +23,6 @@ export default function RecipeForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Receta creada:", form);
   };
 
   return (

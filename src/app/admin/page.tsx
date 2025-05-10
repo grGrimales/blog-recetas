@@ -1,7 +1,6 @@
 "use client";
 
 import DashboardStats from "@/components/organisms/admin/DashboardStats";
-import RecipeTable from "@/components/organisms/admin/RecipeTable";
 
 export default function AdminDashboard() {
   return (

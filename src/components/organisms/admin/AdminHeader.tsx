@@ -1,8 +1,7 @@
 
 "use client"
 import { useState } from "react";
-import { User } from "lucide-react";
-import Button from "@/components/atoms/ui/Button";
+
 
 export default function AdminHeader() {
   const [user] = useState({ name: "Admin", email: "admin@example.com" });

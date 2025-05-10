@@ -14,7 +14,7 @@ export default function Home() {
   const popularRecipes = recipes
     .filter((recipe) => recipe.rating >= 4.8)
     .map((recipe) => ({
-      id: Number(recipe._id!),
+      id: recipe._id!,
       title: recipe.title,
       image: recipe.image,
       rating: recipe.rating ?? 0,
@@ -25,7 +25,7 @@ export default function Home() {
   const filteredRecipesDessert = recipes
     .filter((recipe) => recipe.category === "Postres")
     .map((recipe) => ({
-      id: Number(recipe._id!),
+      id: recipe._id!,
       title: recipe.title,
       image: recipe.image,
       rating: recipe.rating ?? 0,
@@ -33,6 +33,7 @@ export default function Home() {
       servings: recipe.servings,
       author: "Chef Desconocido",
     }));
+
   return (
 
     <>

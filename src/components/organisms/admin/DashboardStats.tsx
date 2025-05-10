@@ -34,7 +34,7 @@ export default function DashboardStats() {
               <h3 className="text-lg font-semibold">{stat.title}</h3>
               <span className="text-2xl">{stat.icon}</span>
             </div>
-            <p className="text-3xl font-bold mt-2">{stat.value.toLocaleString()}</p>
+            <p className="text-3xl font-bold mt-2">{stat.value.toLocaleString('es-ES')}</p>
             <p className="text-sm text-gray-500">{stat.change}</p>
           </div>
         ))}

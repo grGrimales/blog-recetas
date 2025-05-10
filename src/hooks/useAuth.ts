@@ -20,13 +20,9 @@ export function useAuth() {
       const { userId, email: userEmail, name, roles, token } = data;
 
       login({ userId, email: userEmail, name, roles }, token);
-      localStorage.setItem("token", token);
-      console.log(roles.includes("ADMIN_ROLE"), 'login', roles)
       if (roles.includes("ADMIN_ROLE")) {
-        console.log('ISADMIN')
         router.push("/admin");
       } else {
-        console.log('IsUser')
         router.push("/");
       }
     } catch (error) {
@@ -38,7 +34,6 @@ export function useAuth() {
     try {
       const data = await registerUser(name, email, password); 
       login({ userId: data.userId, name, email, roles: ["USER_ROLE"] }, data.token);
-      localStorage.setItem("token", data.token);
       router.push("/");
     } catch (error) {
       console.error("Error al registrarse:", error);

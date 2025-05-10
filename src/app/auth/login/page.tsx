@@ -8,10 +8,11 @@ export default function LoginPage() {
         <div className="relative z-20 mt-auto">
           <blockquote className="space-y-2">
             <p className="text-lg">
-              "Cocinar es como el amor. Debe entrar con abandono o no hacerlo en absoluto."
+              &quot;Cocinar es como el amor. Debe entrar con abandono o no hacerlo en absoluto.&quot;
             </p>
             <footer className="text-sm">- Harriet Van Horne</footer>
           </blockquote>
+
         </div>
       </div>
 

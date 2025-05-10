@@ -4,7 +4,7 @@ import { Star, Clock, Users } from "lucide-react";
 
 interface RecipeCardProps {
   recipe: {
-    id: number;
+    id: string;
     title: string;
     image: string;
     rating: number;

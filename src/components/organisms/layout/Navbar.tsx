@@ -3,15 +3,14 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Search, Menu, X, User, ChefHat, LogOut } from "lucide-react";
-import { useAuth } from "@/hooks/useAuth"; 
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Navbar() {
   const [isMounted, setIsMounted] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const {  isAuthenticated, handleLogout } = useAuth(); 
+  const { isAuthenticated, handleLogout } = useAuth();
 
-  console.log(isAuthenticated)
 
   useEffect(() => {
     setIsMounted(true);
@@ -31,6 +30,13 @@ export default function Navbar() {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
+          <Link
+            href="/recipes"
+            className="text-sm text-muted-foreground hover:text-primary transition"
+          >
+            Recetas
+          </Link>
+
             {isSearchOpen ? (
               <div className="relative">
                 <input
@@ -45,9 +51,13 @@ export default function Navbar() {
                 </button>
               </div>
             ) : (
-              <button onClick={() => setIsSearchOpen(true)}>
-                <Search className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors" />
-              </button>
+              <>
+               
+                <button onClick={() => setIsSearchOpen(true)}>
+                  <Search className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors" />
+                </button>
+              </>
+
             )}
 
             {isAuthenticated ? (
@@ -60,6 +70,13 @@ export default function Navbar() {
               </button>
             ) : (
               <>
+
+            <Link
+              href="/recipes"
+              className="text-sm text-muted-foreground hover:text-primary transition"
+            >
+              Recetas
+            </Link>
                 <Link href="/auth/login">
                   <button className="flex items-center gap-2 px-4 py-2 border-none rounded-md text-neutral hover:bg-gray-100 transition">
                     <User className="h-5 w-5" />
@@ -89,6 +106,12 @@ export default function Navbar() {
         {/* Mobile Search */}
         {isSearchOpen && (
           <div className="py-3 md:hidden">
+            <Link
+              href="/recetas"
+              className="text-sm text-muted-foreground hover:text-primary transition"
+            >
+              Recetas
+            </Link>
             <input
               type="search"
               placeholder="Buscar recetas..."
@@ -113,6 +136,12 @@ export default function Navbar() {
               </button>
             ) : (
               <>
+               <Link
+                  href="/recipes"
+                  className="text-foreground hover:text-primary transition-colors py-2"
+                >
+                  Recetas
+                </Link>
                 <Link
                   href="/auth/login"
                   className="text-foreground hover:text-primary transition-colors py-2"

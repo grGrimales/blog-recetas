@@ -9,7 +9,7 @@ export default function RegisterPage() {
         <div className="relative z-20 mt-auto">
           <blockquote className="space-y-2">
             <p className="text-lg">
-              "La cocina es el corazón del hogar, donde las recetas se convierten en recuerdos."
+            &quot;La cocina es el corazón del hogar, donde las recetas se convierten en recuerdos.&quot;
             </p>
             <footer className="text-sm">- Anónimo</footer>
           </blockquote>

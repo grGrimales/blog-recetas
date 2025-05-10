@@ -22,7 +22,8 @@ export function useRecipes() {
         const data = await fetchRecipes();
         setRecipes(data);
       } catch (err) {
-        setError("Error al cargar recetas");
+        setError(err instanceof Error ? err.message : "Error desconocido");
+        console.error(err);
       } finally {
         setLoading(false);
       }
@@ -42,7 +43,8 @@ export function useRecipes() {
       setRecipes((prev) => [...prev, newRecipe]);
       successMessage("Receta creada exitosamente");
     } catch (err) {
-      errorMessage("Error al crear receta");
+      errorMessage(err instanceof Error ? err.message : "Error desconocido");
+      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -57,11 +59,12 @@ export function useRecipes() {
     try {
       const updated = await updateRecipe(recipeId, updatedFields);
       setRecipes((prev) =>
-        prev.map((r) => (r._id === recipeId ? { ...r, ...updated } : r))
+        prev.map((r) => (r._id == recipeId ? { ...r, ...updated } : r))
       );
       successMessage("Receta actualizada correctamente");
     } catch (err) {
-      errorMessage("Error al actualizar receta");
+      errorMessage(err instanceof Error ? err.message : "Error desconocido");
+      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -80,7 +83,8 @@ export function useRecipes() {
       setRecipes((prev) => prev.filter((r) => r._id !== recipeId))
       successMessage("Receta eliminada correctamente");
     } catch (err) {
-      errorMessage("Error al eliminar receta");
+      errorMessage(err instanceof Error ? err.message : "Error desconocido");
+      console.error(err);
     } finally {
       setLoading(false);
     }

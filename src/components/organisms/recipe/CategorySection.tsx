@@ -3,7 +3,7 @@ import RecipeCard from "../../molecules/recipe/RecipeCard";
 interface CategorySectionProps {
   title: string;
   recipes: Array<{
-    id: number;
+    id: string;
     title: string;
     image: string;
     rating: number;

@@ -6,7 +6,7 @@ import { Recipe } from "@/types/recipe";
 import { useAlertStore } from "@/store/alertStore";
 
 export function useRecipeById(recipeId: string) {
-  const [recipe, setRecipe] = useState<Recipe | null>(null);
+  const [recipe, setRecipe] = useState<Recipe>();
   const [loading, setLoading] = useState(false);
   const { errorMessage } = useAlertStore.getState();
 
@@ -17,14 +17,14 @@ export function useRecipeById(recipeId: string) {
         const data = await getRecipeById(recipeId);
         setRecipe(data);
       } catch (error) {
-        errorMessage("Error al cargar receta");
+        errorMessage(error instanceof Error ? error.message : "Ocurrió un error desconocido");
       } finally {
         setLoading(false);
       }
     };
 
     if (recipeId) fetchData();
-  }, [recipeId]);
+  }, [recipeId, errorMessage]);
 
-  return { recipe, loading };
+  return { recipe, loading, errorMessage };
 }

@@ -13,8 +13,6 @@ interface AuthFormProps {
 export default function AuthForm({ type }: AuthFormProps) {
   const { handleLogin, handleRegister } = useAuth();
   const [formData, setFormData] = useState({ name: "", email: "", password: "" });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,8 +20,7 @@ export default function AuthForm({ type }: AuthFormProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
-    setLoading(true);
+  
 
     try {
       if (type === "login") {
@@ -32,9 +29,8 @@ export default function AuthForm({ type }: AuthFormProps) {
         await handleRegister(formData.name, formData.email, formData.password);
       }
     } catch (err) {
-      setError("Error en la autenticación");
+      console.error("Error en la autenticación:", err);
     } finally {
-      setLoading(false);
     }
   };
 

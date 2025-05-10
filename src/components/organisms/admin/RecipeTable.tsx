@@ -4,12 +4,10 @@ import Link from "next/link";
 import { PenSquare, Trash2 } from "lucide-react";
 import Button from "@/components/atoms/ui/Button";
 import { useRecipes } from "@/hooks/useRecipes";
-import { useAlertStore } from "@/store/alertStore";
 import { useConfirmStore } from "@/store/confirmStore";
 
 export default function RecipeTable() {
   const { recipes, loading, error, handleDeleteRecipe } = useRecipes();
-  const alert = useAlertStore();
 
   if (loading) {
     return <p className="p-6 text-center">Cargando recetas...</p>;

@@ -8,12 +8,8 @@ function getToken() {
 }
 
 export async function fetchRecipes() {
-  const token = getToken();
-  if (!token) throw new Error("Token no disponible");
 
-  const res = await fetch(API_URL, {
-    headers: { token: `${token}` },
-  });
+  const res = await fetch(API_URL);
 
   if (!res.ok) throw new Error("Error al obtener recetas");
   return res.json();
@@ -70,12 +66,8 @@ export async function deleteRecipe(recipeId: string) {
 
 
 export async function getRecipeById(recipeId: string) {
-  const token = getToken();
-  if (!token) throw new Error("Token no disponible");
 
-  const res = await fetch(`${API_URL}/${recipeId}`, {
-    headers: { token: `${token}` },
-  });
+  const res = await fetch(`${API_URL}/${recipeId}`);
 
   if (!res.ok) throw new Error("Error al obtener la receta");
   return res.json();

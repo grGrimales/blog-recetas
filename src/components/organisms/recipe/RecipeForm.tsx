@@ -56,6 +56,7 @@ export default function RecipeForm({ initialData, onSubmit, isEditing = false }:
       ingredients,
       steps: instructions,
       authorId: initialData?.authorId || "",
+      rating: initialData?.rating || 0, 
     };
 
     try {
